@@ -104,13 +104,9 @@ class SongProvider extends ChangeNotifier {
 
   void seek(Duration position) async {
     await _audioPlayer.seek(position);
-    // notifyListeners();
   }
 
   void playNextSong() {
-    print("Playing next song");
-    print("Current song index: $_currentSongIndex");
-    print("Total songs: ${_songs.length}");
     _currentDuration = Duration.zero;
     _prevDuration = Duration.zero;
     _prevPosition = Duration.zero;
@@ -119,10 +115,8 @@ class SongProvider extends ChangeNotifier {
         .where((element) =>
             element.playlistid == _songs[_currentSongIndex!].playlistid)
         .toList();
-    print("This song list: $thisSongList");
     var firstSong = thisSongList[0];
     var lastSong = thisSongList[thisSongList.length - 1];
-    print("Last song: $lastSong");
     if (_currentSongIndex != null) {
       // if (_currentSongIndex! < _songs.length - 1) {
       if (_currentSongIndex! == int.parse(lastSong.songId) - 1) {
@@ -131,7 +125,6 @@ class SongProvider extends ChangeNotifier {
         play();
       } else if (_currentSongIndex! < _songs.length - 1) {
         _currentSongIndex = _currentSongIndex! + 1;
-        print("Current song index----: $_currentSongIndex");
         play();
       } else {
         _currentSongIndex = 0; // Loop back to the first song
@@ -141,42 +134,28 @@ class SongProvider extends ChangeNotifier {
   }
 
   void listenToDuration() {
-    print("Listening to duration changes");
     _audioPlayer.onDurationChanged.listen((duration) {
       _totalDuration = duration;
       notifyListeners();
     });
     _audioPlayer.onPositionChanged.listen((position) {
-      print("---------");
-      print("Position changed: $position");
-      print("Prev Position changed: $_prevPosition");
-      print("Current duration: $_currentDuration");
-      print("Previous duration: $_prevDuration");
-      print("===============");
       _prevPosition = position;
       if (_prevDuration > position) {
         Duration diff = _prevDuration - position;
-        print("Difference: $diff");
         if (diff > Duration.zero) {
           var positionDiff = _prevPosition - position;
-          print("Position difference: $positionDiff");
           _currentDuration = _prevDuration + positionDiff;
           _prevDuration = _currentDuration;
           notifyListeners();
           return;
-          // print("Current duration: $_currentDuration");
-          // print("Previous duration: $_prevDuration");
         }
       } else {
         _currentDuration = position;
         _prevDuration = position;
-        print("Outer Current duration: $_currentDuration");
-        print("Outer Previous duration: $_prevDuration");
         notifyListeners();
       }
     });
     _audioPlayer.onPlayerComplete.listen((event) {
-      // print("Song completed, playing next song");
       playNextSong();
     });
   }
@@ -188,11 +167,8 @@ class SongProvider extends ChangeNotifier {
   Duration get totalDuration => _totalDuration;
 
   set currentSongIndex(int? newIndex) {
-    print("Setting current song index to: $newIndex");
     _currentSongIndex = newIndex;
     if (newIndex != null) {
-      print("Playing song: ${_songs[newIndex].songName}");
-      print("Playing song URL: ${_songs[newIndex].songUrl}");
       play();
     }
     notifyListeners();

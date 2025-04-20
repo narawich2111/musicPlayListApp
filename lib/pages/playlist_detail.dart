@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:music_playlist/model/song.dart';
 import 'package:music_playlist/model/song_provider.dart';
-import 'package:provider/provider.dart';
 import 'package:logger/logger.dart';
-import 'package:audioplayers/audioplayers.dart';
 
 class PlaylistDetailPage extends StatefulWidget {
   final String playlistId;

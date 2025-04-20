@@ -1,29 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:music_playlist/model/playList.dart';
-// import 'package:music_playlist/model/song.dart';
 
 class PlaylistProvider extends ChangeNotifier {
-  // List<Playlist> _playlists = [];
-
-  // List<Playlist> get playlists => _playlists;
-
-  // void addPlaylist(Playlist playlist) {
-  //   _playlists.add(playlist);
-  //   notifyListeners();
-  // }
-
-  // void removePlaylist(Playlist playlist) {
-  //   _playlists.remove(playlist);
-  //   notifyListeners();
-  // }
-
-  // void updatePlaylist(Playlist oldPlaylist, Playlist newPlaylist) {
-  //   int index = _playlists.indexOf(oldPlaylist);
-  //   if (index != -1) {
-  //     _playlists[index] = newPlaylist;
-  //     notifyListeners();
-  //   }
-  // }
 
   final List<Playlist> _playlists = [
     Playlist(
