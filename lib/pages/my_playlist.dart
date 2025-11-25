@@ -32,8 +32,8 @@ class _myPlaylistState extends State<myPlaylist> {
     super.initState();
     didChangeDependencies();
     setState(() {
-      logger.i('Initializing myPlaylist state...');
-      logger.i('Current Song isPlaying: ${songProvider.isPlaying}');
+      // logger.i('Initializing myPlaylist state...');
+      // logger.i('Current Song isPlaying: ${songProvider.isPlaying}');
       isPlaying = songProvider.isPlaying;
     });
   }
